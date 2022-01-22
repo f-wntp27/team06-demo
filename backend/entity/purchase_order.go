@@ -21,4 +21,15 @@ type PurchaseOrder struct {
 
 	OrderTime       time.Time
 	DeliveryAddress string
+
+	OrderItems []PurchaseOrderItem `gorm:"foreignKey:OrderID; constraint:OnDelete:CASCADE"`
+}
+
+type PurchaseOrderItem struct {
+	gorm.Model
+
+	OrderID *uint
+	Order   PurchaseOrder `gorm:"references:ID"`
+
+	OrderAmount uint
 }
